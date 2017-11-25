@@ -8,10 +8,8 @@ def main(lower, upper):
     l = np.array(lower)
     u = np.array(upper)
 
-    cap = cv2.VideoCapture(0)
-
-    replace_counter = 0
-    replace_bg = cv2.imread('background.png')
+    frame_counter = 0
+    replace_bg = None
 
     x = 1 # 0.1
     y = 1 # 0.00625
@@ -21,10 +19,20 @@ def main(lower, upper):
                             [y, x, x, x, y],
                             [y, y, y, y, y]])
 
+    cap = cv2.VideoCapture(1)
+
+    # set camera width and height
+    cap.set(3, 1280)
+    cap.set(4, 720)
+
+    start_time = time.time()
     while(True):
-        if DEBUG: start_time = time.time()
+        if DEBUG: it_start_time = time.time()
 
         _, frame = cap.read()
+
+        if replace_bg is None:
+            replace_bg = frame
 
         #import pdb; pdb.set_trace()
 
@@ -34,8 +42,6 @@ def main(lower, upper):
 
         mask = cv2.medianBlur(mask, 9)
         mask = cv2.filter2D(mask, -1, f1_kernel)
-        #mask = cv2.blur(mask, (5,5))
-        #mask = cv2.medianBlur(mask, 9)
         mask_inv = cv2.bitwise_not(mask)
 
         bg = cv2.bitwise_and(frame, frame, mask=mask_inv)
@@ -47,19 +53,21 @@ def main(lower, upper):
         #cv2.imshow('mask',mask)
         cv2.imshow('res', res)
 
-        if replace_counter % 15 == 0:
+        if frame_counter % 15 == 0:
             replace_bg = cv2.add(bg, fg)
 
-        replace_counter += 1
+        frame_counter += 1
 
-        if DEBUG: processing_elapsed_time = time.time() - start_time
+        if DEBUG: processing_elapsed_time = time.time() - it_start_time
         if DEBUG: _log_elapsed_time("Frame processing time: ", processing_elapsed_time)
 
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
-        if DEBUG: processing_and_displaying_elapsed_time = time.time() - start_time
-        if DEBUG: _log_elapsed_time("Frame processing & displaying time: ", processing_and_displaying_elapsed_time)
+        if DEBUG:
+            processing_and_displaying_elapsed_time = time.time() - it_start_time
+            _log_elapsed_time("Frame processing & displaying time: ", processing_and_displaying_elapsed_time)
+            _log_elapsed_time("Frame/sec: ", frame_counter / (time.time() - start_time))
 
     cap.release()
     cv2.destroyAllWindows()
@@ -88,7 +96,7 @@ def _find_contour():
 
         #import pdb; pdb.set_trace()
 
-        if replace_counter % 15 == 0:
+        if replace_counter % 100 == 0:
             replace_bg = cv2.add(bg, fg)
 
         replace_counter += 1
