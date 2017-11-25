@@ -76,24 +76,17 @@ def _log_elapsed_time(text, elapsed_time):
 
 
 # not used
-def _find_contour():
+def _find_contour(mask, res):
     _, contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    cnt = max(contours, key=lambda c: len(c)) if contours is not None else None
 
     if cnt is not None:
         rect = cv2.minAreaRect(cnt)
         box = cv2.boxPoints(rect)
         box = np.int0(box)
 
-        #import pdb; pdb.set_trace()
-
         cv2.drawContours(res,[box],0,(0,0,255),2)
-
-        #import pdb; pdb.set_trace()
-
-        if replace_counter % 100 == 0:
-            replace_bg = cv2.add(bg, fg)
-
-        replace_counter += 1
 
 
 def save_background():
