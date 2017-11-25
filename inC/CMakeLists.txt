@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project( InvisibleMan )
+find_package( OpenCV )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( InvisibleMan main.cpp )
+target_link_libraries( InvisibleMan ${OpenCV_LIBS} )

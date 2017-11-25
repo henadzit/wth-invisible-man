@@ -6,9 +6,9 @@
 //  Copyright © 2017 Alexey Dubrov. All rights reserved.
 //
 
-#include <iostream>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
+#include "iostream"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 
 using namespace cv;
 
