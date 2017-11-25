@@ -1,10 +1,12 @@
+import argparse
+
 import numpy as np
 import cv2
 import time
 
 DEBUG = True
 
-def main(lower, upper):
+def main(lower, upper, dyn=False):
     l = np.array(lower)
     u = np.array(upper)
 
@@ -16,8 +18,8 @@ def main(lower, upper):
     cap = cv2.VideoCapture(1)
 
     # set camera width and height
-    cap.set(3, 1280)
-    cap.set(4, 720)
+    cap.set(3, 640)
+    cap.set(4, 480)
 
     start_time = time.time()
     while(True):
@@ -25,7 +27,8 @@ def main(lower, upper):
 
         _, frame = cap.read()
 
-        if replace_bg is None:
+        # we need to skip a few first frames because they are corrupt
+        if replace_bg is None and frame_counter < 3:
             replace_bg = frame
 
         #import pdb; pdb.set_trace()
@@ -47,8 +50,8 @@ def main(lower, upper):
         #cv2.imshow('mask',mask)
         cv2.imshow('res', res)
 
-        if frame_counter % 15 == 0:
-            replace_bg = cv2.add(bg, fg)
+        if dyn and frame_counter % 15 == 0:
+            replace_bg = res
 
         frame_counter += 1
 
@@ -102,5 +105,10 @@ def save_background():
     cap.release()
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dyn', dest='dyn', action='store_true')
+    parser.set_defaults(dyn=False)
+    args = parser.parse_args()
+
     #main(_convert_hsv(48, 6, 5), _convert_hsv(140, 200, 200))
-    main(_convert_hsv(63, 10, 5), _convert_hsv(145, 140, 140))
+    main(_convert_hsv(63, 10, 5), _convert_hsv(145, 140, 140), dyn=args.dyn)
