@@ -11,13 +11,7 @@ def main(lower, upper):
     frame_counter = 0
     replace_bg = None
 
-    x = 1 # 0.1
-    y = 1 # 0.00625
-    f1_kernel = np.asarray([[y, y, y, y, y],
-                            [y, x, x, x, y],
-                            [y, x, x, x, y],
-                            [y, x, x, x, y],
-                            [y, y, y, y, y]])
+    f1_kernel = np.ones((9, 9), dtype=np.int)
 
     cap = cv2.VideoCapture(1)
 
