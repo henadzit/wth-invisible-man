@@ -16,6 +16,7 @@
 		92ACC4411FC8962F00053A69 /* iOSWTFUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC4401FC8962F00053A69 /* iOSWTFUITests.swift */; };
 		92ACC44F1FC8988200053A69 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC44E1FC8988100053A69 /* opencv2.framework */; };
 		92ACC4531FC898C200053A69 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC4521FC898C200053A69 /* OpenCVWrapper.mm */; };
+		92CAE6A01FCB0C98001D0A6E /* white.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 92CAE69F1FCB0C98001D0A6E /* white.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		92ACC4501FC898C100053A69 /* iOSWTF-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSWTF-Bridging-Header.h"; sourceTree = "<group>"; };
 		92ACC4511FC898C200053A69 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		92ACC4521FC898C200053A69 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		92CAE69F1FCB0C98001D0A6E /* white.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = white.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				92ACC4271FC8962F00053A69 /* Assets.xcassets */,
 				92ACC4291FC8962F00053A69 /* LaunchScreen.storyboard */,
 				92ACC42C1FC8962F00053A69 /* Info.plist */,
+				92CAE69F1FCB0C98001D0A6E /* white.jpg */,
 				92ACC44E1FC8988100053A69 /* opencv2.framework */,
 				92ACC4501FC898C100053A69 /* iOSWTF-Bridging-Header.h */,
 			);
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92ACC42B1FC8962F00053A69 /* LaunchScreen.storyboard in Resources */,
+				92CAE6A01FCB0C98001D0A6E /* white.jpg in Resources */,
 				92ACC4281FC8962F00053A69 /* Assets.xcassets in Resources */,
 				92ACC4261FC8962F00053A69 /* Main.storyboard in Resources */,
 			);

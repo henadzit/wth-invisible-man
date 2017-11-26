@@ -15,7 +15,7 @@ def main(lower, upper, dyn=False):
 
     f1_kernel = np.ones((9, 9), dtype=np.int)
 
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     # set camera width and height
     cap.set(3, 1024)

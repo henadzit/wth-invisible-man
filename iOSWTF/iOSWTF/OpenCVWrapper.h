@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface OpenCVWrapper : NSObject
 
-//Function to get OpenCV Version
-+ (NSString *)openCVVersion;
+/// Converts a full color image to grayscale image with using OpenCV.
++ (nonnull UIImage *)cvtColorBGR2GRAY:(nonnull UIImage *)image;
++ (nonnull UIImage *)classifyImage:(nonnull UIImage *)image;
+- (nonnull UIImage *)recognizeFace:(nonnull UIImage *)image;
++ (nonnull UIImage *)wtfMan:(nonnull UIImage *)image;
 
 @end
