@@ -18,8 +18,8 @@ def main(lower, upper, dyn=False):
     cap = cv2.VideoCapture(1)
 
     # set camera width and height
-    cap.set(3, 640)
-    cap.set(4, 480)
+    cap.set(3, 1024)
+    cap.set(4, 768)
 
     start_time = time.time()
     while(True):
@@ -28,7 +28,7 @@ def main(lower, upper, dyn=False):
         _, frame = cap.read()
 
         # we need to skip a few first frames because they are corrupt
-        if replace_bg is None and frame_counter < 3:
+        if replace_bg is None or frame_counter < 3:
             replace_bg = frame
 
         #import pdb; pdb.set_trace()
@@ -46,6 +46,8 @@ def main(lower, upper, dyn=False):
 
         res = cv2.add(bg, fg)
 
+        _draw_mode(res, dyn)
+
         #cv2.imshow('original', frame)
         #cv2.imshow('mask',mask)
         cv2.imshow('res', res)
@@ -58,8 +60,18 @@ def main(lower, upper, dyn=False):
         if DEBUG: processing_elapsed_time = time.time() - it_start_time
         if DEBUG: _log_elapsed_time("Frame processing time: ", processing_elapsed_time)
 
-        if cv2.waitKey(25) & 0xFF == ord('q'):
+        # hadle keys
+        key = cv2.waitKey(25) & 0xFF
+        if key == ord('q'):
             break
+        elif key == ord('u'):
+            # update background
+            replace_bg = frame
+        elif key == ord('d'):
+            dyn = True
+        elif key == ord('s'):
+            dyn = False
+            replace_bg = frame
 
         if DEBUG:
             processing_and_displaying_elapsed_time = time.time() - it_start_time
@@ -68,6 +80,12 @@ def main(lower, upper, dyn=False):
 
     cap.release()
     cv2.destroyAllWindows()
+
+
+def _draw_mode(img, dyn):
+    text = 'D' if dyn else 'S'
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.putText(img, text, (5,25), font, 1, (255,255,255))
 
 
 def _convert_hsv(h, s, v):
